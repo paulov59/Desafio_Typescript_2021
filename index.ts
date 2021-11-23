@@ -1,4 +1,4 @@
-type BuiltInTag = "home" | "work";
+type BuiltInTag = "home" | "work" | "school";
 
 type TodoTag = BuiltInTag | { custom: string };
 
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const updateStateEvent = new CustomEvent("updateState", {});
 // Exemplo de generics
-function makeState<S>(initialState: S) {
+function makeState<S>(initialState: S) { //transformar em classe
   let state: S;
   function getState() {
     return state;
@@ -30,10 +30,14 @@ function makeState<S>(initialState: S) {
   return { getState, setState };
 }
 
+class MakeState<S> {
+  
+}
+
 // Application
 function TodoApp(listElement: HTMLDivElement) {
   const { getState, setState } = makeState<Todo[]>([]);
-  const dataSet: Set<BuiltInTag> = new Set(["home", "work"]);
+  const dataSet: Set<BuiltInTag> = new Set(["home", "work", "school"]);
   let nextId = 0;
 
   listElement.innerHTML = `
@@ -125,7 +129,7 @@ function TodoApp(listElement: HTMLDivElement) {
     setState(data);
   }
 
-  function toggleTodo(todo: Todo): Todo {
+  function toggleTodo(todo: Todo): Todo { //completar
     
   }
 
@@ -139,7 +143,7 @@ function TodoApp(listElement: HTMLDivElement) {
   }
 
   function getTodoTag(tag: string): TodoTag {
-    return tag === "home" || tag === "work" ? tag : { custom: tag };
+    return tag === "home" || tag === "work" || tag === "school" ? tag : { custom: tag };
   }
 
   function createTodoTagTuple(tag: TodoTag): [HTMLElement, HTMLSpanElement] {
@@ -154,6 +158,9 @@ function TodoApp(listElement: HTMLDivElement) {
     } else if (tag === "work") {
       icon.classList.add("bi-briefcase");
       label.textContent = "Work";
+    } else if (tag === "school") {
+      icon.classList.add("bi-mortarboard");
+      label.textContent = "School";
     } else {
       icon.classList.add("bi-pin");
       label.textContent = tag.custom;
@@ -162,11 +169,11 @@ function TodoApp(listElement: HTMLDivElement) {
     return [icon, label];
   }
 
-  function completeAll(todos: Todo[]): Array<Todo & { done: true }> {
+  function completeAll(todos: Todo[]): Array<Todo & { done: true }> { //completar
     
   }
 
-  function getTotalDone(todos: Todo[]): number {
+  function getTotalDone(todos: Todo[]): number { //completar
     
   }
 
